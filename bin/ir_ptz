@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'ir_ptz'
+require 'ir_ptz/command_line'
+
+IrPtz::CommandLine.new.run
