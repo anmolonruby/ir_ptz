@@ -1,4 +1,12 @@
 #!/usr/bin/env ruby
+require 'fileutils'
+
+DATA_FILE = ENV["IR_DATA_FILE"] || File.expand_path('.ir_remote.yml', ENV['HOME'])
+unless File.exists?(DATA_FILE)
+  default_file = File.join(File.dirname(File.expand_path(__FILE__)), '../data/ir_remote.yml')
+  FileUtils.cp default_file, DATA_FILE
+end
+
 require 'ir_ptz'
 require 'ir_ptz/command_line'
 
