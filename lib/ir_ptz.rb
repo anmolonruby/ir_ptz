@@ -22,21 +22,15 @@ module IrPtz
   end
 
   class Configuration
-    attr_accessor :escape_key, :left_key, :right_key, :up_key, :down_key
-    attr_accessor :in_key, :out_key, :help_key, :device_path, :action_mappings
+    attr_accessor :escape_key, :help_key, :actions, :action_mappings
+    attr_accessor :device_path
 
     def initialize
       self.escape_key  = 'e'
       self.help_key    = '?'
-      self.action_mappings = {
-        'h' => 'pan_left',
-        'l' => 'pan_right',
-        'k' => 'tilt_up',
-        'j' => 'tilt_down',
-        'i' => 'zoom_in',
-        'o' => 'zoom_out'
-      }
-      self.device_path = ENV['ARDUINO'] || '/dev/tty.usbmodem401321'
+      self.action_mappings = ArduinoIrRemote::DATA['action_mappings']
+      self.actions         = ArduinoIrRemote::DATA['actions']
+      self.device_path     = ArduinoIrRemote::DATA['device_path']
     end
   end
 end

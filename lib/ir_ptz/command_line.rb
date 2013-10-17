@@ -44,12 +44,12 @@ module IrPtz
     end
 
     def instructions
-      %Q{
-        Use '#{config.up_key}' and '#{config.down_key}', to tilt
-        Use '#{config.left_key}' and '#{config.right_key}' to pan
-        Use '#{config.escape_key}' to exit.
-        Use '#{config.help_key}' for help
-      }
+      title        = "\nThe following key commands are available:\n"
+      exit_text    = "\t'#{config.escape_key}' to exit."
+      help_text    = "\t'#{config.help_key}' for help"
+      custom_text  = config.action_mappings.map { |k, v| "\t'#{k}' to #{v}" }
+      instructions = [title, exit_text, help_text] + custom_text
+      instructions.join "\n"
     end
   end
 end
