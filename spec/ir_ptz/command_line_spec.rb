@@ -51,13 +51,10 @@ describe IrPtz::CommandLine do
     end
 
     context 'remote specific commands' do
-      it 'passes commands to IR Remote' do
-        expect_key_delegates_to_remote IrPtz.configuration.left_key,  :pan_left
-        expect_key_delegates_to_remote IrPtz.configuration.right_key, :pan_right
-        expect_key_delegates_to_remote IrPtz.configuration.up_key,    :tilt_up
-        expect_key_delegates_to_remote IrPtz.configuration.down_key,  :tilt_down
-        expect_key_delegates_to_remote IrPtz.configuration.in_key,    :zoom_in
-        expect_key_delegates_to_remote IrPtz.configuration.out_key,   :zoom_out
+      IrPtz.configuration.action_mappings.keys.each do |key|
+        it 'passes commands to IR Remote' do
+          expect_key_delegates_to_remote key, IrPtz.configuration.action_mappings[key]
+        end
       end
     end
   end

@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 module IrPtz
   class << self
     attr_accessor :configuration
@@ -21,24 +23,25 @@ module IrPtz
 
   class Configuration
     attr_accessor :escape_key, :left_key, :right_key, :up_key, :down_key
-    attr_accessor :in_key, :out_key, :help_key, :device_path, :actions
+    attr_accessor :in_key, :out_key, :help_key, :device_path, :action_mappings
 
     def initialize
       self.escape_key  = 'e'
       self.help_key    = '?'
-      self.left_key    = 'h'
-      self.right_key   = 'l'
-      self.up_key      = 'k'
-      self.down_key    = 'j'
-      self.in_key      = 'i'
-      self.out_key     = 'o'
+      self.action_mappings = {
+        'h' => 'pan_left',
+        'l' => 'pan_right',
+        'k' => 'tilt_up',
+        'j' => 'tilt_down',
+        'i' => 'zoom_in',
+        'o' => 'zoom_out'
+      }
       self.device_path = ENV['ARDUINO'] || '/dev/tty.usbmodem401321'
     end
   end
 end
 
 require "ir_ptz/version"
-require 'bundler/setup'
 require 'arduino_ir_remote'
 require "ir_ptz/ir_remote"
 require "ir_ptz/command_line"

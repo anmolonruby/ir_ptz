@@ -19,25 +19,21 @@ module IrPtz
           break
         when config.help_key
           print_instructions
-        when config.left_key
-          ir_remote.pan_left
-        when config.right_key
-          ir_remote.pan_right
-        when config.down_key
-          ir_remote.tilt_down
-        when config.up_key
-          ir_remote.tilt_up
-        when config.in_key
-          ir_remote.zoom_in
-        when config.out_key
-          ir_remote.zoom_out
         else
-          print_instructions
+          if action = action(key)
+            ir_remote.send action(key)
+          else
+            print_instructions
+          end
         end
       end
     end
 
     private
+
+    def action(key)
+      config.action_mappings[key]
+    end
 
     def config
       IrPtz.configuration
