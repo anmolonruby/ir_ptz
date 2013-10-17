@@ -25,15 +25,14 @@ module IrPtz
 
     def initialize
       self.escape_key  = 'e'
+      self.help_key    = '?'
       self.left_key    = 'h'
       self.right_key   = 'l'
       self.up_key      = 'k'
       self.down_key    = 'j'
       self.in_key      = 'i'
       self.out_key     = 'o'
-      self.help_key    = '?'
       self.device_path = ENV['ARDUINO'] || '/dev/tty.usbmodem401321'
-      self.actions     = ['zoom_in', 'zoom_out', 'tilt_up', 'tilt_down', 'pan_left', 'pan_right']
     end
   end
 end

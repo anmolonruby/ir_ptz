@@ -26,7 +26,7 @@ describe IrPtz::IrRemote do
   end
 
   # dynamic example
-  IrPtz.configuration.actions.each do |action|
+  ArduinoIrRemote::DATA.keys.each do |action|
     describe 'actions' do
       before do
         ArduinoIrRemote::DATA[action] = 'some value'

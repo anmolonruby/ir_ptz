@@ -5,7 +5,7 @@ module IrPtz
       @ir = ArduinoIrRemote.connect IrPtz.configuration.device_path
     end
 
-    IrPtz.configuration.actions.each do |action|
+    ArduinoIrRemote::DATA.keys.each do |action|
       define_method(action) do
         if ir_code = ArduinoIrRemote::DATA[action]
           ir.write ir_code
