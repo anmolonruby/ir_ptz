@@ -16,7 +16,7 @@ describe IrPtz::IrRemote do
   describe 'zoom_in' do
     before do
       arduino_ir.stubs(:write)
-      ArduinoIrRemote::DATA['zoom_in'] = 'some value'
+      ArduinoIrRemote::DATA['actions']['zoom_in'] = 'some value'
     end
 
     it 'sends the zoom in signal to the board' do
@@ -26,10 +26,10 @@ describe IrPtz::IrRemote do
   end
 
   # dynamic example
-  ArduinoIrRemote::DATA.keys.each do |action|
+  ArduinoIrRemote::DATA['actions'].keys.each do |action|
     describe 'actions' do
       before do
-        ArduinoIrRemote::DATA[action] = 'some value'
+        ArduinoIrRemote::DATA['actions'][action] = 'some value'
         arduino_ir.stubs(:write)
       end
 
