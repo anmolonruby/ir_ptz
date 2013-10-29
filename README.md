@@ -1,9 +1,11 @@
 ## IR PTZ
 
 CLI to controle a Pan, Tilt, and Zoom Camera by InfraRed via an Arduino. This
-is just a simple wrapper around
-[arduino_ir_remote](https://github.com/shokai/arduino_ir_remote) that adds a
-cli to pass recorded signals to a camera.
+is just a wrapper around
+[arduino_ir_remote](https://github.com/shokai/arduino_ir_remote) that adds the following:
+
+ - cli to replay recorded codes
+ - ability to record new codes
 
 ## Requirements
 
@@ -33,12 +35,8 @@ find the sketch run the following:
 
 Then in the SDK open the output from above (e.g. `/PATH_TO_GEMS/1.9.1/gems/ir_ptz-x.x.x/arduino/arduino.ino`)
 
-## Rerecording IR Signals
+## Still to do
 
-If for some reason you want to change the signals (maybe you have a different
-model) you can rerecord them manually. To do you there are two steps:
-
-1. run `arduino_ir_remote --read tilt_up`
-2. when the command prints 'reading...' press and release the remote
-
-It will should you the output that was recorded to `~/.ir_remote.yml`
+Have writing to the Arduino not stop processing incoming key presses. Basically
+I will buffer the input in one thread and write out the buffer in the other I
+think.
