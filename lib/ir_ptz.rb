@@ -22,12 +22,13 @@ module IrPtz
   end
 
   class Configuration
-    attr_accessor :escape_key, :help_key, :actions, :action_mappings
+    attr_accessor :escape_key, :help_key, :record_key, :actions, :action_mappings
     attr_accessor :device_path
 
     def initialize
       self.escape_key  = 'e'
       self.help_key    = '?'
+      self.record_key  = 'r'
       self.action_mappings = ArduinoIrRemote::DATA['action_mappings']
       self.actions         = ArduinoIrRemote::DATA['actions']
       self.device_path     = ArduinoIrRemote::DATA['device_path']
@@ -38,4 +39,5 @@ end
 require "ir_ptz/version"
 require 'arduino_ir_remote'
 require "ir_ptz/ir_remote"
+require "ir_ptz/ir_command_recorder"
 require "ir_ptz/command_line"

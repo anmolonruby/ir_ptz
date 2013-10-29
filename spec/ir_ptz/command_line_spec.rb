@@ -5,6 +5,7 @@ require 'ir_ptz/ir_remote'
 describe IrPtz::CommandLine do
   context 'non remote commands' do
     let(:escape_key) { IrPtz.configuration.escape_key }
+    let(:record_key) { IrPtz.configuration.record_key }
     let(:bad_key)    { '.' }
     let(:getch_stub) { STDIN.stubs(:getch) }
     subject(:cli)    { IrPtz::CommandLine.new }
@@ -48,11 +49,22 @@ describe IrPtz::CommandLine do
         # trice - once at the start and once for each bad key press
         expect(cli).to have_received(:puts).with(instructions).times(3)
       end
+
+      it 'passes record_new_command to IRCommandRecorder' do
+        IrPtz::IrCommandRecorder.stubs(:record).returns(mock(:save))
+        getch_stub.returns record_key, escape_key
+
+        cli.run
+
+        expect(IrPtz::IrCommandRecorder).to have_received(:record)
+      end
     end
 
     context 'remote specific commands' do
       IrPtz.configuration.action_mappings.keys.each do |key|
         it 'passes commands to IR Remote' do
+          IrPtz::IrRemote.instance.stubs(:read_code)
+
           expect_key_delegates_to_remote key, IrPtz.configuration.action_mappings[key]
         end
       end

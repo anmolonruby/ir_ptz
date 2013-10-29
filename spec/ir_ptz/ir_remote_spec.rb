@@ -3,13 +3,11 @@ require 'ir_ptz'
 require 'arduino_ir_remote'
 
 describe IrPtz::IrRemote do
-  subject(:ir)     { IrPtz::IrRemote.new }
+  subject(:ir)     { IrPtz::IrRemote.instance }
   let(:arduino_ir) { mock }
 
   before do
-    ArduinoIrRemote.stubs(:connect).
-      with(IrPtz.configuration.device_path).
-      returns(arduino_ir)
+    ir.stubs(:ir).returns arduino_ir
   end
 
   # concrete example
@@ -33,10 +31,14 @@ describe IrPtz::IrRemote do
         arduino_ir.stubs(:write)
       end
 
-      it 'can senda defined singnal to the board' do
+      it 'can send a defined singnal to the board' do
         ir.send(action)
         expect(arduino_ir).to have_received(:write).with 'some value'
       end
     end
+  end
+
+  describe '#read_code' do
+    it 'returns the read in signal'
   end
 end
