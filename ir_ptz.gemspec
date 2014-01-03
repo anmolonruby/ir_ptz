@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["wmernagh@gmail.com"]
   spec.description   = %q{CLI to control a Pan Tilt Zoom Camera by InfraRed via an Arduino}
   spec.summary       = %q{see homepage}
-  spec.homepage      = "https://github.com/wmernagh/ir_ptz"
+  spec.homepage      = "https://github.com/wm/ir_ptz"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split("\n")
