@@ -1,4 +1,5 @@
 require 'io/console'
+require 'thread'
 
 module IrPtz
   class CommandLine
@@ -23,7 +24,7 @@ module IrPtz
           ir_command_recorder.record.save
         else
           if action = action(key)
-            ir_remote.send action(key)
+            ir_remote.send action
           else
             print_instructions
           end
