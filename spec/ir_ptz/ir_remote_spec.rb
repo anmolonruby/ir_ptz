@@ -10,6 +10,13 @@ describe IrPtz::IrRemote do
     ir.stubs(:ir).returns arduino_ir
   end
 
+  # Helper
+  def wait_for_thread
+    while !ir.send(:actions).empty? do
+      # U G L Y - but it works
+    end
+  end
+
   # concrete example
   describe 'zoom_in' do
     before do
@@ -19,6 +26,7 @@ describe IrPtz::IrRemote do
 
     it 'sends the zoom in signal to the board' do
       ir.zoom_in
+      wait_for_thread
       expect(arduino_ir).to have_received(:write).with 'some value'
     end
   end
@@ -33,6 +41,7 @@ describe IrPtz::IrRemote do
 
       it 'can send a defined singnal to the board' do
         ir.send(action)
+        wait_for_thread
         expect(arduino_ir).to have_received(:write).with 'some value'
       end
     end
